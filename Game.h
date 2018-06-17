@@ -1,31 +1,23 @@
 #include <iostream>
-
+template<char token = '*', int no_rows = 4>
 class Game{
 public:
-	Game(int _no, char _token);
+	Game();
 	void print_game() const;
+	class CPU_opponent;
+public:
 	class CPU_opponent{
 	public:
-
+		void optimal_move() const;
 	private:
-		bool difficulty;
-		CPU_opponent(bool _difficulty):difficulty(_difficulty){}
-
+		CPU_opponent(Game*, int);	
+		int difficulty;
+		Game* parent;
 	};
-	
 private:
-	int no_rows; char token;
-	int* rows=new int[no_rows];
+	int* rows;
+public:
+	CPU_opponent generate(int _difficulty = 5){
+		return CPU_opponent(this, _difficulty);
+	}
 };
-
-
-
-
-
-
-/*class Standard_Game extends Game{
-public: 
-
-private:
-	int no_rows=4; char token= '*';
-};*/
