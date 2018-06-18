@@ -1,37 +1,31 @@
-#include "Game.h"
 #include <iostream>
 #include <functional>
 #include <algorithm>
-#include <cstdlib>
-#include <stdlib.h>
-#include <ctime>
+#include "Game.h"
 
-template<char token, int no_rows>
-Game<token, no_rows>::Game():rows(new int[no_rows]){
+template<char token>
+Nim<token>::Nim(int _no_rows): no_rows(_no_rows), game_layout(new int[_no_rows]){
 	for(int i=0; i<no_rows; i++)
-	{
-		rows[i]= 2*i +1;
-	}
+		game_layout[i]=2*i+1;
 }
 
-template<char token, int no_rows>
-void Game<token, no_rows>::print_game() const{
-	std::for_each(rows, rows+ no_rows, 
+template<char token>
+Nim<token>::~Nim(){
+	delete[] game_layout;
+}
+
+template<char token>
+void Nim<token>::print_game() const{
+	std::for_each(game_layout, game_layout+no_rows, 
 		[&](const int& x){
-			 for (int i=0; i<x; i++)
-			 	std::cout<<token<<"\t";
-			 std::cout<<std::endl;
-			});
+			for(int i=0; i<x; i++)
+				std::cout<<token<<"\t";
+			std::cout<<std::endl;
+		});
 	std::cout<<std::endl;
 	return;
 }
 
-template<char token, int no_rows>
-Game<token, no_rows>::CPU_opponent::CPU_opponent(Game* _parent, int _difficulty):parent(_parent), difficulty(_difficulty){}
+template<char token>
+Nim<token>::CPU_Opponent::CPU_Opponent(int _difficulty, Nim<token>* _parent):difficulty(_difficulty), parent(_parent){}
 
-
-template<char token, int no_rows>
-void Game<token, no_rows>::CPU_opponent::optimal_move() const{
-
-	return;
-}

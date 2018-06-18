@@ -1,23 +1,29 @@
 #include <iostream>
-template<char token = '*', int no_rows = 4>
-class Game{
+#include <string>
+
+
+template<char token = '*'>
+class Nim
+{
 public:
-	Game();
+	Nim(int = 4);
 	void print_game() const;
-	class CPU_opponent;
-public:
-	class CPU_opponent{
-	public:
-		void optimal_move() const;
-	private:
-		CPU_opponent(Game*, int);	
-		int difficulty;
-		Game* parent;
-	};
+	~Nim();
 private:
-	int* rows;
+	class CPU_Opponent{
+	private:
+		int difficulty;
+		Nim<token>* parent;
+		CPU_Opponent(int, Nim<token>*);
+		friend class Nim<token>;
+	};
+	friend class CPU_Opponent;
 public:
-	CPU_opponent generate(int _difficulty = 5){
-		return CPU_opponent(this, _difficulty);
+	CPU_Opponent generate(int _difficulty = 5){
+		return CPU_Opponent(this, _difficulty);
 	}
+private:
+	int* game_layout;
+	int no_rows;
+
 };
