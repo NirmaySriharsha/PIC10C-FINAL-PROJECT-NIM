@@ -91,3 +91,13 @@ void Nim<token>::CPU_Opponent::random_move(){
 	parent->player_move(row, counters);
 	return;
 }
+
+template<char token>
+bool Nim<token>::game_finished() const{
+	int check;
+	std::for_each(game_layout, game_layout+no_rows, [&check](const int& x){check+=x;});
+	if (check==0)
+		return true;
+	else
+		return false;
+}

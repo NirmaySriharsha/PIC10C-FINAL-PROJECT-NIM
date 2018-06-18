@@ -29,6 +29,7 @@ public:
 		return CPU_Opponent(_difficulty, this);
 	}
 	void player_move(int, int);
+	bool game_finished() const;
 private:
 	int* game_layout;
 	int no_rows;
