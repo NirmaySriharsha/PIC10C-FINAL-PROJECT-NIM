@@ -22,9 +22,20 @@ This "algorithm" will ensure victory.
 
 
 #THE CODING:
+In the beginning, the project seemed to be in trouble of not covering any topics that were discusses in PIC10C. Now, upon completion, the project touches upon the following topic in PIC10C: 
+
+1. Nested classes and iterators: While the CPU_Opponent class is not an iterator as you'd expect in a typical STL, this is expected as the Nim class isn't an STL either. Regardless, CPU_Opponent does share a strong resemblance with a typical iterator, with its ability to traverse its parent and affect changes upon it. The CPU_Opponent class was created by nesting it inside the Nim class, another topic we covered in class. 
+
+2. Generic Algorithms, Numeric Algorithms, and Lambda Functions: Several standard algorithms such as accumulate, for_each, etc was used in this project to help simplify tedious tasks. There was also the use of lambda functions in order to speed up coding instead of defining a seperate function elsewhere. All of these topics were also covered in PIC10C. 
+
+3. Function pointers: Function pointers were mainly used to implement the UI of the game, as it was a handy tool that helped code the reactions to the player's interaction with the UI. 
+
+4. Other: We also used memory management (albeit basic memory management) when we allocate memory for objects of the Nim class. We also use concepts of rand(), system("CLS"), etc. 
 
 #THE DOCUMENTATION: 
 
 1. Have been playing with various template styles for the class Nim (each instance of the class Nim will be a game). Have finally settled on the template style, and thus the barebones of the game and its sub-class. Began this readme. 
 
 2. Created a function that allows the CPU_opponent to calculate the nim sum of its parent game. Needless to say, this is crucial to the working of the algorithm and the game. 
+
+3. Have created functions that allow the user (and CPU) to actually make moves, and see their moves reflected in the game. I also added functions that would help the CPU determine what move to make, based on its difficulty setting and the Nim solving algorithm. Finally, I also updated the "UI" of the game.
