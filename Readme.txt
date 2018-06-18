@@ -3,7 +3,7 @@ S. Nirmay,
 June 2018. 
 
 														PIC 10C Final Project: The Game of Nim!
-				A quick overview over the game of Nim, the coding that went behind this project, and the documentation of the creation of the project. 
+	A quick overview over the game of Nim, the coding that went behind this project, and the documentation of the creation of the project. 
 #THE MATH: 
 
 Nim is a relatively simple math game. For info on the rules and how to play, see: https://www.geeksforgeeks.org/combinatorial-game-theory-set-2-game-nim/
@@ -26,3 +26,5 @@ This "algorithm" will ensure victory.
 #THE DOCUMENTATION: 
 
 1. Have been playing with various template styles for the class Nim (each instance of the class Nim will be a game). Have finally settled on the template style, and thus the barebones of the game and its sub-class. Began this readme. 
+
+2. Created a function that allows the CPU_opponent to calculate the nim sum of its parent game. Needless to say, this is crucial to the working of the algorithm and the game. 
