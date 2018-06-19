@@ -26,7 +26,7 @@ In the beginning, the project seemed to be in trouble of not covering any topics
 
 1. Nested classes and iterators: While the CPU_Opponent class is not an iterator as you'd expect in a typical STL, this is expected as the Nim class isn't an STL either. Regardless, CPU_Opponent does share a strong resemblance with a typical iterator, with its ability to traverse its parent and affect changes upon it. The CPU_Opponent class was created by nesting it inside the Nim class, another topic we covered in class. 
 
-2. Generic Algorithms, Numeric Algorithms, and Lambda Functions: Several standard algorithms such as accumulate, for_each, etc was used in this project to help simplify tedious tasks. There was also the use of lambda functions in order to speed up coding instead of defining a seperate function elsewhere. All of these topics were also covered in PIC10C. 
+2. Generic Algorithms, Numeric Algorithms, and Lambda Functions: Several standard algorithms such as accumulate, for_each, copy etc was used in this project to help simplify tedious tasks. There was also the use of lambda functions in order to speed up coding instead of defining a seperate function elsewhere. All of these topics were also covered in PIC10C. 
 
 3. Function pointers: Function pointers were mainly used to implement the UI of the game, as it was a handy tool that helped code the reactions to the player's interaction with the UI. 
 
@@ -39,3 +39,5 @@ In the beginning, the project seemed to be in trouble of not covering any topics
 2. Created a function that allows the CPU_opponent to calculate the nim sum of its parent game. Needless to say, this is crucial to the working of the algorithm and the game. 
 
 3. Have created functions that allow the user (and CPU) to actually make moves, and see their moves reflected in the game. I also added functions that would help the CPU determine what move to make, based on its difficulty setting and the Nim solving algorithm. Finally, I also updated the "UI" of the game.
+
+4. The program seems to be working fine right now. No bugs as far as I can see. Will polish the UI and player experience next. 

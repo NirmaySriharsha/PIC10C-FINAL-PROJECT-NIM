@@ -27,7 +27,6 @@ void ui_interaction(void (*f)()){
 		case 'E':
 		std::cout<<"Thank you for your time!"; break;
 	}
-
 }
 
 void ui(bool valid_input){
@@ -64,6 +63,39 @@ void ui(bool valid_input){
 }
 
 void play_game(){
+	bool player_won;
+	std::cout<<"It's Nim time! Whoever takes the last counter wins! \n";
+	std::cout<<"How many rows would you like to play with? (Standard is 4) \n";
+	int rows; std::cin>>rows;
+	Nim<'*'> game(rows);
+	std::cout<<"How hard would you like your opponent to be? (1-10. Recommended 5) \n";
+	int difficulty; std::cin>>difficulty;
+	auto CPU = game.generate(difficulty);
+	std::cout<<"Alright! Would you like to go first? (Y/N)"<<std::endl; char input; std::cin>>input;
+	system("CLS");
+	if(input=='Y'|| input == 'y')
+		game.user_move();
+	int i=1;
+	while(game.game_finished() == false){
+		std::cout<<"I entered the loop for the "<<i<<" time "<<std::endl;
+		CPU.decide_move();
+		if(game.game_finished())
+		{
+			player_won=false;
+			break;
+		}
+		game.user_move();
+		if(game.game_finished())
+		{
+			player_won=true;
+			break;
+		}
+		++i;
+	}
+	if(player_won==true)
+		std::cout<<"Congratulations! You win! \n";
+	else
+		std::cout<<"Sorry! You lose! \n";
 	return;
 }
 
