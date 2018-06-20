@@ -16,8 +16,7 @@ public:
 		return CPU_Opponent(this, difficulty);
 	}
 	friend class CPU_Opponent;
-	void player_move(int, int, bool);
-	void user_move();
+	bool user_move();
 	bool game_finished() const;
 private:
 	int* game_layout;

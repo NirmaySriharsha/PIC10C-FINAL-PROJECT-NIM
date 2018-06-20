@@ -41,3 +41,5 @@ In the beginning, the project seemed to be in trouble of not covering any topics
 3. Have created functions that allow the user (and CPU) to actually make moves, and see their moves reflected in the game. I also added functions that would help the CPU determine what move to make, based on its difficulty setting and the Nim solving algorithm. Finally, I also updated the "UI" of the game.
 
 4. The program seems to be working fine right now. No bugs as far as I can see. Will polish the UI and player experience next. 
+
+5. Removed some of the bloat of the programming by removing an unecessary "intermediary" in the move making process. This also removed a few corner case bugs I saw. Improved the UI a bit. The project is pretty much ready to be graded. Might still make some changes later. 

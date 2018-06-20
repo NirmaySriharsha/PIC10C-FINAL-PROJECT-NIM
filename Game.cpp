@@ -13,7 +13,7 @@ Nim<token>::Nim(int _no_rows):no_rows(_no_rows){
 		game_layout= new int[no_rows];
 	}
 	catch(std::exception &e){
-		std::cerr<<"An exception occured \n";
+		std::cerr<<"Memory allocation problem \n";
 		game_layout=nullptr;
 	}
 	for(int i=0; i<no_rows; i++)
@@ -22,11 +22,14 @@ Nim<token>::Nim(int _no_rows):no_rows(_no_rows){
 
 template<char token>
 void Nim<token>::print_game() const{
+	int row_counter = 1;
 	std::for_each(game_layout, game_layout+no_rows, 
 		[&](const int& x){
+			std::cout<<"Row "<<row_counter<<"\t";
 			for(int i=1; i<=x; i++)
 				std::cout<<token<<"\t";
 			std::cout<<std::endl;
+			++row_counter;
 		});
 	std::cout<<std::endl;
 }
@@ -40,34 +43,31 @@ template<char token>
 Nim<token>::CPU_Opponent::CPU_Opponent(Nim<token>* _parent, int _difficulty):parent(_parent), difficulty(_difficulty){}
 
 template<char token>
-void Nim<token>::player_move(int row, int counters, bool user){
+bool Nim<token>::user_move(){
+	bool valid_move = false; int row; int counters;
+	while(valid_move==false){
+		std::cout<<"(Press 0 to exit at any time)"<<std::endl;
+		std::cout<<"What row would you like to remove counters from?"<<std::endl;
+		std::cin>>row;
+		if(row == 0)
+			return false;
+		std::cout<<"How many counters would you like to remove from row "<<row<<std::endl;
+		std::cin>>counters;
+		if(row == 0 || counters == 0)
+			return false;
+		if(game_layout[row-1]<counters || row>no_rows+1)
+			std::cout<<"Invalid input. Please try again."<<std::endl;
+		else
+			valid_move=true;
+	}
 	system("CLS");
-	std::cout<<"Before :"<<std::endl;
-	this->print_game(); 
-	if(game_layout[row-1]>=counters)
-		game_layout[row-1]-=counters;
-	else
-		{
-			std::cout<<"Invalid entry. Please try again"<<std::endl;
-			this->user_move();
-		}
+	std::cout<<"Before : "<<std::endl;
+	this->print_game();
+	game_layout[row-1]-=counters;
 	std::cout<<"After : "<<std::endl;
 	this->print_game();
-	if(user == true)
-		std::cout<<"The player removed "<<counters<<" counters from row "<<row<<std::endl;
-	else
-		std::cout<<"The CPU removed "<<counters<<" counters from row "<<row<<std::endl;
-	return;
-}
-
-template<char token>
-void Nim<token>::user_move(){
-	std::cout<<"What row would you like to remove counters from? "<<std::endl;
-	int row; std::cin>>row;
-	std::cout<<"How many counters would you like to remove from row "<<row<<std::endl;
-	int counters; std::cin>>counters;
-	this->player_move(row, counters, true);
-	return;
+	std::cout<<"The player took "<<counters<<" counters from row "<<row<<std::endl;
+	return true;
 }
 
 template<char token>
@@ -126,7 +126,13 @@ void Nim<token>::CPU_Opponent::best_move(){
 			if(this->nim_sum(dummy)== 0)
 				{
 					std::cout<<"CPU played this: "<<i+1<<"	"<<counters<<std::endl;
-					parent->player_move(i+1, counters, false);
+					system("CLS");
+					std::cout<<"Before :"<<std::endl;
+					parent->print_game(); 
+					parent->game_layout[i]-=counters;
+					std::cout<<"After :"<<std::endl;
+					parent->print_game();
+					std::cout<<"The CPU removed "<<counters<<"  counters from row "<<i+1<<std::endl;
 					return;
 				}
 			else
@@ -140,6 +146,7 @@ void Nim<token>::CPU_Opponent::best_move(){
 
 template<char token>
 void Nim<token>::CPU_Opponent::random_move(){
+	srand(time(NULL));
 	std::cout<<"Entered CPU_Opponent::random_move() safely "<<std::endl;
 	int row;
 	do{
@@ -149,6 +156,12 @@ void Nim<token>::CPU_Opponent::random_move(){
 	int counters=rand()%(parent->game_layout[row]) + 1;
 	std::cout<<"Took a random counter safely "<<counters<<std::endl;
 	std::cout<<"I think i'll take "<<counters<<" from row "<<row+1<<" 	and recall that there are "<<parent->game_layout[row]<<" counters on row "<<row+1<<std::endl;
-	parent->player_move(row+1, counters, false);
+	system("CLS");
+	std::cout<<"Before: "<<std::endl;
+	parent->print_game();
+	parent->game_layout[row]-=counters;
+	std::cout<<"After : "<<std::endl;
+	parent->print_game(); 
+	std::cout<<"The CPU removed "<<counters<<"  counters from row "<<row+1<<std::endl;
 	return;
 }
