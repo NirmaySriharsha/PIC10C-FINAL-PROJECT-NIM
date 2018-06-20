@@ -41,6 +41,9 @@ Nim<token>::CPU_Opponent::CPU_Opponent(Nim<token>* _parent, int _difficulty):par
 
 template<char token>
 void Nim<token>::player_move(int row, int counters, bool user){
+	system("CLS");
+	std::cout<<"Before :"<<std::endl;
+	this->print_game(); 
 	if(game_layout[row-1]>=counters)
 		game_layout[row-1]-=counters;
 	else
@@ -48,7 +51,7 @@ void Nim<token>::player_move(int row, int counters, bool user){
 			std::cout<<"Invalid entry. Please try again"<<std::endl;
 			this->user_move();
 		}
-	system("CLS");
+	std::cout<<"After : "<<std::endl;
 	this->print_game();
 	if(user == true)
 		std::cout<<"The player removed "<<counters<<" counters from row "<<row<<std::endl;
@@ -59,7 +62,6 @@ void Nim<token>::player_move(int row, int counters, bool user){
 
 template<char token>
 void Nim<token>::user_move(){
-	this->print_game();
 	std::cout<<"What row would you like to remove counters from? "<<std::endl;
 	int row; std::cin>>row;
 	std::cout<<"How many counters would you like to remove from row "<<row<<std::endl;
@@ -103,7 +105,7 @@ void Nim<token>::CPU_Opponent::decide_move(){
 	}
 	else
 	{
-		std::cout<<"I choose a randome move"<<std::endl;
+		std::cout<<"I choose a random move"<<std::endl;
 		this->random_move();
 	}
 	return;
@@ -131,14 +133,21 @@ void Nim<token>::CPU_Opponent::best_move(){
 					std::copy(parent->game_layout, parent->game_layout+parent->no_rows, dummy);
 		}
 	}
+	std::cout<<"No perfect move so settling for a random one \n";
 	this->random_move();
 	return;
 }
 
 template<char token>
 void Nim<token>::CPU_Opponent::random_move(){
-	int row= rand()%(parent->no_rows);
+	std::cout<<"Entered CPU_Opponent::random_move() safely "<<std::endl;
+	int row;
+	do{
+		 row= rand()%(parent->no_rows);
+	}while(parent->game_layout[row]==0);
+	std::cout<<"Took a random row safely "<<row<<std::endl;
 	int counters=rand()%(parent->game_layout[row]) + 1;
+	std::cout<<"Took a random counter safely "<<counters<<std::endl;
 	std::cout<<"I think i'll take "<<counters<<" from row "<<row+1<<" 	and recall that there are "<<parent->game_layout[row]<<" counters on row "<<row+1<<std::endl;
 	parent->player_move(row+1, counters, false);
 	return;
